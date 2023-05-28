@@ -74,19 +74,29 @@ async function createdPosts(req, res) {
     let photoPubPath = null;
     let photoUrl = null;
 
-
-  if (req.file) {
-  photoPubPath = req.file.path;
-  const filename = path.basename(photoPubPath);
-  photoUrl = `${apiUrl}/${filename}`;
-  const apiUrl = `https://borra.onrender.com/files`;
-  const photoUrl = `${apiUrl}/${filename}`;
-}
-
-
+    if (req.file) {
+      const photoPubPath = req.file.path;
+      const filename = path.basename(photoPubPath);
+    
+      // Fazer o upload da imagem para o Firebase Storage
+      const file = bucket.file(filename);
+      await file.save(photoPubPath, {
+        metadata: {
+          contentType: req.file.mimetype,
+        },
+      });
+    
+      // Obter o URL da imagem no Firebase Storage
+      const [url] = await file.getSignedUrl({
+        action: "read",
+        expires: "03-09-2023" // Defina a expiração desejada para o URL
+      });
+      photoPub = url;
+    }
+    
     const post = new Posts({
       photo: user.photo,
-      photoPub: photoUrl,
+      photoPub, // Usar o URL da imagem no Firebase Storage
       username: user.username,
       content,
       userId,
@@ -94,8 +104,9 @@ async function createdPosts(req, res) {
       likes: { count: 0, users: [] },
       comments: [],
     });
-
+    
     await post.save();
+    
 
     return res.status(201).json({
       message: "Post created successfully",

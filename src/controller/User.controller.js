@@ -135,14 +135,11 @@ try {
 
 
 async function savePhoto(req, res) {
-  const photoPath = req.file.path; // pegamos a imagem
+  const photoPath = req.file.firebaseUrl; // pegamos a imagem
   const userId = req.body.userId; // e o id do usuario
 
   try {
-    const apiUrl = `https://socialmedia-mauve.vercel.app/files`;
-    const filename = path.basename(photoPath); // pega o nome do arquivo
-    const photoUrl = `${apiUrl}/${filename}`; // concatena
-
+  
     const user = await User.findById(userId); // Encontra o usuário pelo ID
 
     if (!user) {
@@ -160,7 +157,7 @@ async function savePhoto(req, res) {
     return res.status(200).json({
       message: "Photo updated successfully",
       photoPath,
-      photo: photoUrl,
+      photo: req.file.firebaseUrl,
       userId: userId,
     });
   } catch (err) {
