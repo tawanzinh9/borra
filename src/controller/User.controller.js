@@ -137,7 +137,7 @@ async function savePhoto(req, res) {
   const userId = req.body.userId; // e o id do usuario
 
   try {
-    const apiUrl = `https://socialmedia-mauve.vercel.app/files`;
+    const apiUrl = `https://borra.onrender.com/files`;
     const filename = path.basename(photoPath); // pega o nome do arquivo
     const photoUrl = `${apiUrl}/${filename}`; // concatena
 

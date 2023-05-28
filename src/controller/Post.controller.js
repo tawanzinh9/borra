@@ -76,7 +76,7 @@ async function createdPosts(req, res) {
 
     if (req.file) {
       photoPubPath = req.file.path;
-      const apiUrl = `https://socialmedia-mauve.vercel.app/files`;
+      const apiUrl = `https://borra.onrender.com/files`;
       const filename = path.basename(photoPubPath);
       photoUrl = `${apiUrl}/${filename}`;
 
