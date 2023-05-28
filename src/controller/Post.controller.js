@@ -77,11 +77,10 @@ async function createdPosts(req, res) {
 
   if (req.file) {
   photoPubPath = req.file.path;
-  const protocol = req.protocol;
-  const host = req.get('host');
-  const apiUrl = `${protocol}://${host}/files`;
   const filename = path.basename(photoPubPath);
   photoUrl = `${apiUrl}/${filename}`;
+  const apiUrl = `${window.location.origin}/files`;
+  const photoUrl = `${apiUrl}/${filename}`;
 }
 
 

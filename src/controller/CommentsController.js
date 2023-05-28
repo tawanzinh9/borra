@@ -21,11 +21,10 @@ async function newComment(req, res) {
 
     if (req.file) {
       photoPubPath = req.file.path;
-      const protocol = req.protocol;
-      const host = req.get('host');
-      const apiUrl = `${protocol}://${host}/files`;
+      const apiUrl = `${window.location.origin}/files`;
+       photoUrl = `${apiUrl}/${filename}`;
       const filename = path.basename(photoPubPath);
-      photoUrl = `${apiUrl}/${filename}`;
+  
     }
     
 

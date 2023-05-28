@@ -140,11 +140,9 @@ async function savePhoto(req, res) {
  
 
   try {
-    const protocol = req.protocol;
-    const host = req.get('host');
-    const apiUrl = `${protocol}://${host}/files`;
     const filename = path.basename(photoPath); // pega o nome do arquivo
-    const photoUrl = `${apiUrl}/${filename}`; // concatena
+    const apiUrl = `${window.location.origin}/files`;
+    const photoUrl = `${apiUrl}/${filename}`;
 
     const user = await User.findById(userId); // Encontra o usuário pelo ID
 
