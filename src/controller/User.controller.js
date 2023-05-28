@@ -133,14 +133,12 @@ try {
 }
 
 
-
 async function savePhoto(req, res) {
-  const photoPath = req.file.firebaseUrl; // pegamos a imagem
-  const userId = req.body.userId; // e o id do usuario
+  const userId = req.body.userId; // e o id do usuário
+  const photoUrl = req.file.firebaseUrl; // obter o URL da imagem do middleware uploadImage
 
   try {
-  
-    const user = await User.findById(userId); // Encontra o usuário pelo ID
+    const user = await User.findById(userId); // Encontre o usuário pelo ID
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -149,23 +147,25 @@ async function savePhoto(req, res) {
     // Atualiza a foto do usuário
     user.photo = photoUrl;
     await user.save({ validateBeforeSave: false });
-  
 
     // Atualiza os posts do usuário com a nova foto
     await Posts.updateMany({ userId: userId }, { photo: photoUrl });
 
     return res.status(200).json({
       message: "Photo updated successfully",
-      photoPath,
-      photo: req.file.firebaseUrl,
+      photoUrl,
       userId: userId,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
-      message: "Error, please try again." + err,
+      message: "Error, please try again.",
+      error: err.message,
     });
   }
 }
+
+
 
 
 async function newBio(req, res) {
