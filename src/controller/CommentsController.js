@@ -21,10 +21,13 @@ async function newComment(req, res) {
 
     if (req.file) {
       photoPubPath = req.file.path;
-      const apiUrl = `https://borra.onrender.com/files`;
+      const protocol = req.protocol;
+      const host = req.get('host');
+      const apiUrl = `${protocol}://${host}/files`;
       const filename = path.basename(photoPubPath);
       photoUrl = `${apiUrl}/${filename}`;
     }
+    
 
  
     const comment = new Comments({

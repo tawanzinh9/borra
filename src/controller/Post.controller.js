@@ -74,19 +74,16 @@ async function createdPosts(req, res) {
     let photoPubPath = null;
     let photoUrl = null;
 
-    if (req.file) {
-      photoPubPath = req.file.path;
-      const apiUrl = `https://borra.onrender.com/files`;
-      const filename = path.basename(photoPubPath);
-      photoUrl = `${apiUrl}/${filename}`;
 
-      // Atualiza a foto do usuário nos posts antigos
-      
+  if (req.file) {
+  photoPubPath = req.file.path;
+  const protocol = req.protocol;
+  const host = req.get('host');
+  const apiUrl = `${protocol}://${host}/files`;
+  const filename = path.basename(photoPubPath);
+  photoUrl = `${apiUrl}/${filename}`;
+}
 
- 
-
-    
-    }
 
     const post = new Posts({
       photo: user.photo,
