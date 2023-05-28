@@ -81,7 +81,7 @@ async function login (req, res) {
     }
 
     try {
-        const secret = process.env.SECRET 
+        const secret = "HASHTAG"
 
         const token = jwt.sign({id: usernameExist._id,
              username: usernameExist.username, 
