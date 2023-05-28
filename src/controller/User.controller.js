@@ -81,7 +81,7 @@ async function login (req, res) {
     }
 
     try {
-        const secret = "HASHTAG"
+        const secret = process.env.SECRET 
 
         const token = jwt.sign({id: usernameExist._id,
              username: usernameExist.username, 
@@ -97,7 +97,7 @@ async function login (req, res) {
              })
     } catch (error) {
         res.status(500).json({
-            message: "Sorry, something wrong happens, please check." + error
+            message: "Sorry, something wrong happens, please check."
         })
     }
 }
@@ -132,17 +132,16 @@ try {
 
 }
 
+
+
 async function savePhoto(req, res) {
   const photoPath = req.file.path; // pegamos a imagem
   const userId = req.body.userId; // e o id do usuario
 
- 
- 
-
   try {
+    const apiUrl = `https://socialmedia-mauve.vercel.app/files`;
     const filename = path.basename(photoPath); // pega o nome do arquivo
-    const apiUrl = `https://borra.onrender.com/files`;
-    const photoUrl = `${apiUrl}/${filename}`;
+    const photoUrl = `${apiUrl}/${filename}`; // concatena
 
     const user = await User.findById(userId); // Encontra o usuário pelo ID
 

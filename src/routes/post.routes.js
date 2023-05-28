@@ -26,13 +26,14 @@ routesPosts.get("/getPosts", posts.getPosts)
 routesPosts.post("/createPosts", upload.single("photoPub"),  posts.createdPosts)
 routesPosts.get("/getPostsById/:id", posts.getPostsById)
 routesPosts.get("/getUsersWhoLikedbyId/:id", posts.getUsersWhoLikedById)
+const uploadImage = require("../../services/firebase")
 // likes and deslike
 // http://localhost:5000/like/id
 routesPosts.put("/like/:id/:userId", likesAndDeslike.like)
 
 
 // Comentários // http://localhost:4000/
-routesPosts.post("/creatingComment/:id", upload.single("photoPub"), comments.newComment);
+routesPosts.post("/creatingComment/:id", upload.single("photoPub"), uploadImage,  comments.newComment);
 routesPosts.get("/getComments/:id", comments.showComments);
 
 
