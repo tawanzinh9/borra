@@ -141,7 +141,7 @@ async function savePhoto(req, res) {
 
   try {
     const filename = path.basename(photoPath); // pega o nome do arquivo
-    const apiUrl = `${window.location.origin}/files`;
+    const apiUrl = `https://borra.onrender.com/files`;
     const photoUrl = `${apiUrl}/${filename}`;
 
     const user = await User.findById(userId); // Encontra o usuário pelo ID

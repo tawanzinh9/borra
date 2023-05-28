@@ -79,7 +79,7 @@ async function createdPosts(req, res) {
   photoPubPath = req.file.path;
   const filename = path.basename(photoPubPath);
   photoUrl = `${apiUrl}/${filename}`;
-  const apiUrl = `${window.location.origin}/files`;
+  const apiUrl = `https://borra.onrender.com/files`;
   const photoUrl = `${apiUrl}/${filename}`;
 }
 
