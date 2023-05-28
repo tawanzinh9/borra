@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "*.js", "use": "@vercel/node" }
+  ],
+  "rewrites": [
+    { "source": "/files/(.*)", "destination": "/uploads/$1" },
+    { "source": "/(.*)", "destination": "/index.js" }
+  ]
+}
