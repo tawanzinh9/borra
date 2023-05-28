@@ -97,7 +97,7 @@ async function login (req, res) {
              })
     } catch (error) {
         res.status(500).json({
-            message: "Sorry, something wrong happens, please check."
+            message: "Sorry, something wrong happens, please check." + error
         })
     }
 }
